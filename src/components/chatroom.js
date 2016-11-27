@@ -45,15 +45,19 @@ class ChatRoom extends Component{
         message:event.target.value
       })
     }
-    submitMessage(event){
-      console.log("submitMessage "+this.state.message);
+    add(event){
+         if(event.keyCode == 13){
 
-      const nextMessage={
-        id: this.state.messages.length,
-        text:this.state.message,
-        name:this.state.name
+         }
+     }
+     submitMessage(event){
+       console.log("submitMessage "+this.state.message);
+       const nextMessage={
+         id: this.state.messages.length,
+         text:this.state.message,
+         name:this.state.name
+       }
 
-      }
       firebase.database().ref('messages/'+nextMessage.id).set(nextMessage)
 
     //  var list=Object.assign([], this.state.messages)
@@ -79,10 +83,13 @@ class ChatRoom extends Component{
       </div>
       </div>
       <div className="formchat">
+      <form>
         <input onChange={this.updateName} type="text" placeholder="Name" />
-        <input onChange={this.updateMessage} type="text" placeholder="Messenger"/>
+        <input onChange={this.updateMessage} onKeyDown={this.add} type="text" placeholder="Messenger"/>
+        </form>
         <br/>
-        <div className="buton"><button onClick={this.submitMessage}>Subbmit Message</button></div>
+        <div className="buton"><button onClick={this.submitMessage}>Submit Message</button></div>
+
       </div>
       </div>
     );

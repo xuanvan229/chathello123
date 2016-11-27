@@ -21539,16 +21539,20 @@
 	      });
 	    }
 	  }, {
+	    key: "add",
+	    value: function add(event) {
+	      if (event.keyCode == 13) {}
+	    }
+	  }, {
 	    key: "submitMessage",
 	    value: function submitMessage(event) {
 	      console.log("submitMessage " + this.state.message);
-	
 	      var nextMessage = {
 	        id: this.state.messages.length,
 	        text: this.state.message,
 	        name: this.state.name
-	
 	      };
+	
 	      firebase.database().ref('messages/' + nextMessage.id).set(nextMessage);
 	
 	      //  var list=Object.assign([], this.state.messages)
@@ -21589,8 +21593,12 @@
 	        _react2.default.createElement(
 	          "div",
 	          { className: "formchat" },
-	          _react2.default.createElement("input", { onChange: this.updateName, type: "text", placeholder: "Name" }),
-	          _react2.default.createElement("input", { onChange: this.updateMessage, type: "text", placeholder: "Messenger" }),
+	          _react2.default.createElement(
+	            "form",
+	            null,
+	            _react2.default.createElement("input", { onChange: this.updateName, type: "text", placeholder: "Name" }),
+	            _react2.default.createElement("input", { onChange: this.updateMessage, onKeyDown: this.add, type: "text", placeholder: "Messenger" })
+	          ),
 	          _react2.default.createElement("br", null),
 	          _react2.default.createElement(
 	            "div",
@@ -21598,7 +21606,7 @@
 	            _react2.default.createElement(
 	              "button",
 	              { onClick: this.submitMessage },
-	              "Subbmit Message"
+	              "Submit Message"
 	            )
 	          )
 	        )
