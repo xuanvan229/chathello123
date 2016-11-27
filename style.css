@@ -1,0 +1,38 @@
+.chat{
+  background-color: #00acff;
+  width:50%;
+  margin-left: auto;
+  margin-right:auto;
+  height:500px;
+}
+.boxchat{
+  background-color: #fff;
+  height:400px;
+  overflow: auto;
+  width:100%;
+}
+.mess{
+  float:left;
+}
+.textmess{
+  width:auto;
+  padding:10px;
+}
+.mess span{
+  margin-top:5px;
+  list-style: none;
+  background-color: #c9c9cb;
+  width:auto;
+  padding:5px;
+  border-radius:5px;
+}
+.formchat input{
+  width:100%;
+  border:0;
+  height:40px;
+}
+.buton{
+  width:150px;
+  margin-left: auto;
+  margin-right: auto;
+}
