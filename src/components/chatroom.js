@@ -1,4 +1,6 @@
 import React,{Component} from 'react';
+import Time from 'react-time';
+
 
 class ChatRoom extends Component{
     constructor(props, context){
@@ -7,6 +9,7 @@ class ChatRoom extends Component{
       this.submitMessage=this.submitMessage.bind(this);
       this.updateName=this.updateName.bind(this);
       this.state={
+        time:"",
         name:"",
         message:"",
         messages:[
@@ -42,7 +45,8 @@ class ChatRoom extends Component{
     updateMessage(event){
       console.log("updateMessage "+event.target.value);
       this.setState({
-        message:event.target.value
+        message:event.target.value,
+        time: new Date()
       })
     }
     add(event){
@@ -53,6 +57,7 @@ class ChatRoom extends Component{
      submitMessage(event){
        console.log("submitMessage "+this.state.message);
        const nextMessage={
+         time:this.state.time,
          id: this.state.messages.length,
          text:this.state.message,
          name:this.state.name
@@ -67,6 +72,7 @@ class ChatRoom extends Component{
     //  })
     }
   render(){
+      var now = new Date();
     const currentMessage=this.state.messages.map((message,i)=>{
 
       return(
@@ -91,6 +97,7 @@ class ChatRoom extends Component{
         <div className="buton"><button onClick={this.submitMessage}>Submit Message</button></div>
 
       </div>
+      <p>Today is <Time value={this.state.time} format="HH:mm" /></p>
       </div>
     );
   }
