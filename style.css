@@ -1,9 +1,22 @@
-.chat{
-  background-color: #00acff;
-  width:50%;
-  margin-left: auto;
-  margin-right:auto;
-  height:500px;
+@media screen and (min-width:768px) {
+  .chat{
+    background-color: #00acff;
+    margin-left: auto;
+    width:50%;
+    margin-right:auto;
+    height:500px;
+  }
+
+}
+@media screen and (max-width:768px) {
+  .chat{
+    background-color: #00acff;
+    margin-left: auto;
+    width:90%;
+    margin-right:auto;
+    height:500px;
+  }
+
 }
 .boxchat{
   background-color: #fff;
@@ -35,4 +48,12 @@
   width:150px;
   margin-left: auto;
   margin-right: auto;
+}
+body{
+  background-image: url("bg.jpg");
+  background-repeat: no-repeat;
+  -moz-background-size: cover;
+    -webkit-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
 }

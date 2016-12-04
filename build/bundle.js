@@ -82,7 +82,7 @@
 	    value: function render() {
 	      return _react2.default.createElement(
 	        'div',
-	        { className: 'chat' },
+	        { className: 'chat container' },
 	        _react2.default.createElement(_chatroom2.default, null)
 	      );
 	    }
@@ -21480,6 +21480,10 @@
 	
 	var _reactTime2 = _interopRequireDefault(_reactTime);
 	
+	var _moment = __webpack_require__(175);
+	
+	var _moment2 = _interopRequireDefault(_moment);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -21499,6 +21503,7 @@
 	    _this.updateMessage = _this.updateMessage.bind(_this);
 	    _this.submitMessage = _this.submitMessage.bind(_this);
 	    _this.updateName = _this.updateName.bind(_this);
+	    _this.add = _this.add.bind(_this);
 	    _this.state = {
 	      time: "",
 	      name: "",
@@ -21541,21 +21546,33 @@
 	      console.log("updateMessage " + event.target.value);
 	      this.setState({
 	        message: event.target.value,
-	        time: new Date()
+	        time: (0, _moment2.default)().format('lll')
 	      });
 	    }
 	  }, {
 	    key: 'add',
 	    value: function add(event) {
-	      if (event.keyCode == 13) {}
+	      if (event.keyCode == 13) {
+	        console.log("enter");
+	        var nextMessage = {
+	
+	          id: this.state.messages.length,
+	          times: this.state.time,
+	          text: this.state.message,
+	          name: this.state.name
+	        };
+	
+	        firebase.database().ref('messages/' + nextMessage.id).set(nextMessage);
+	      }
 	    }
 	  }, {
 	    key: 'submitMessage',
 	    value: function submitMessage(event) {
 	      console.log("submitMessage " + this.state.message);
 	      var nextMessage = {
-	        time: this.state.time,
+	
 	        id: this.state.messages.length,
+	        times: this.state.time,
 	        text: this.state.message,
 	        name: this.state.name
 	      };
@@ -21577,6 +21594,8 @@
 	        return _react2.default.createElement(
 	          'div',
 	          { className: 'textmess' },
+	          message.times,
+	          ':',
 	          message.name,
 	          ':',
 	          _react2.default.createElement(
@@ -21588,10 +21607,10 @@
 	      });
 	      return _react2.default.createElement(
 	        'div',
-	        null,
+	        { className: 'row' },
 	        _react2.default.createElement(
 	          'div',
-	          { className: 'boxchat' },
+	          { className: 'boxchat col-md-6' },
 	          _react2.default.createElement(
 	            'div',
 	            { className: 'mess' },
@@ -21601,28 +21620,15 @@
 	        _react2.default.createElement(
 	          'div',
 	          { className: 'formchat' },
+	          _react2.default.createElement('input', { onChange: this.updateName, type: 'text', placeholder: 'Name' }),
+	          _react2.default.createElement('input', { onChange: this.updateMessage, onKeyDown: this.add, type: 'text', placeholder: 'Messenger' }),
 	          _react2.default.createElement(
-	            'form',
-	            null,
-	            _react2.default.createElement('input', { onChange: this.updateName, type: 'text', placeholder: 'Name' }),
-	            _react2.default.createElement('input', { onChange: this.updateMessage, onKeyDown: this.add, type: 'text', placeholder: 'Messenger' })
+	            'button',
+	            { onClick: this.submitMessage },
+	            'Submit Message'
 	          ),
 	          _react2.default.createElement('br', null),
-	          _react2.default.createElement(
-	            'div',
-	            { className: 'buton' },
-	            _react2.default.createElement(
-	              'button',
-	              { onClick: this.submitMessage },
-	              'Submit Message'
-	            )
-	          )
-	        ),
-	        _react2.default.createElement(
-	          'p',
-	          null,
-	          'Today is ',
-	          _react2.default.createElement(_reactTime2.default, { value: this.state.time, format: 'HH:mm' })
+	          _react2.default.createElement('div', { className: 'buton' })
 	        )
 	      );
 	    }
