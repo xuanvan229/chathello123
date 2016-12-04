@@ -57,7 +57,11 @@ class ChatRoom extends Component{
        if(event.keyCode == 13)
          {
            console.log("enter");
-         const nextMessage={
+           event.preventDefault();
+           var notes=this.refs.notes;
+
+
+           const nextMessage={
 
            id: this.state.messages.length,
            times:this.state.time,
@@ -67,12 +71,17 @@ class ChatRoom extends Component{
 
 
         firebase.database().ref('messages/'+nextMessage.id).set(nextMessage)
+        notes.value ="";
+        this.props.onSubmit(details);
     }
   }
 
 
      submitMessage(event){
        console.log("submitMessage "+this.state.message);
+       event.preventDefault();
+
+       var notes=this.refs.notes;
        const nextMessage={
 
          id: this.state.messages.length,
@@ -82,13 +91,12 @@ class ChatRoom extends Component{
        }
 
 
-      firebase.database().ref('messages/'+nextMessage.id).set(nextMessage)
+      firebase.database().ref('messages/'+nextMessage.id).set(nextMessage);
+      notes.value ="";
+      this.props.onSubmit(details);
 
-    //  var list=Object.assign([], this.state.messages)
-    //  list.push(nextMessage)
-    //  this.setState({
-    //    messages:list
-    //  })
+
+
     }
   render(){
       var now = new Date();
@@ -106,19 +114,17 @@ class ChatRoom extends Component{
       <div className="boxchat col-md-6">
         <div className="mess">
             {currentMessage}
-
       </div>
       </div>
       <div className="formchat">
 
         <input onChange={this.updateName} type="text" placeholder="Name" />
 
-        <input onChange={this.updateMessage} onKeyDown={this.add} type="text" placeholder="Messenger"/>
-
+        <input ref="notes" onChange={this.updateMessage} onKeyDown={this.add} type="text" placeholder="Messenger"/>
+        <div className="buton">
         <button onClick={this.submitMessage}>Submit Message</button>
-
+        </div>
         <br/>
-        <div className="buton"></div>
 
       </div>
       </div>
